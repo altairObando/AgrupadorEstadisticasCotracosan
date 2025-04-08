@@ -3,9 +3,12 @@ import { ListaBuses } from './ListaBuses';
 import { Agrupador } from './Agrupador';
 import { DataGroup } from '../interfaces/DataGroup';
 import { MyAppContext } from '../data/AppContext';
+interface GestionBusesProps {
+  onNext: () => void;
+  onPrevious: () => void;
+}
 
-
-export const GestionBuses: React.FC = () => {
+export const GestionBuses: React.FC<GestionBusesProps> = (props) => {
   const { setBusSeleccionado } = useContext( MyAppContext )
   const [modalVisible, setModalVisible] = useState(false);
 
@@ -20,7 +23,7 @@ export const GestionBuses: React.FC = () => {
         <ListaBuses onAgrupar={handleAgrupar} />
       </div>
       <div style={{ display: !modalVisible ? 'none': 'block', width: '100%' }}>
-        <Agrupador onClose={ ()=> { setModalVisible(false) }} />
+        <Agrupador onClose={ ()=> { setModalVisible(false) }} onNext={ props.onNext }/>
       </div>
     </>
   );

@@ -18,9 +18,7 @@ const Pasos: StepProps[] = [
 
 function App() {
   const [ current, setCurrent ] = useState(0);
-  const { data, setData } = useContext(MyAppContext)
-  // const [datos, setDatos] = useState<DataGroup[]>([]);
-
+  const { setData } = useContext(MyAppContext)
   const manejarDatosActualizados = (nuevosDatos: DataGroup[]) => {
     setData(nuevosDatos);
     setCurrent(1);
@@ -43,7 +41,7 @@ function App() {
                 <CargaArchivo onDatosActualizados={manejarDatosActualizados} />
             </div>
             <div style={{ display: current== 1 ?'block': 'none' }}>
-                <GestionBuses />
+                <GestionBuses onNext={ ()=> setCurrent(current +1 ) } onPrevious={ ()=> setCurrent(current - 1) }/>
             </div>
             <div style={{ display: current== 2?'block': 'none' }}>
                 <TablaResumen />

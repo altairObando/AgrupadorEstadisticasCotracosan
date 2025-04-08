@@ -4,10 +4,15 @@ import { MyAppContext } from '../data/AppContext';
 import { DataRow } from '../interfaces/DataRow';
 import { Tramo } from '../interfaces/Tramo';
 
+interface TablaTramosProps {
+    tramos: Tramo[];
+}
 
-export const TablaResumen:React.FC = () => {
-    const { tramos } = useContext(MyAppContext);
-    return <Table dataSource={ tramos || [] } rowKey={ record => record.nombre } >
+
+
+const TablaTramos:React.FC<TablaTramosProps> = ({ tramos }) => {
+    console.log('tramos', tramos);
+    return <Table dataSource={ (tramos || []).filter(( value, index, arr) => arr.findIndex(item => item.nombre == value.nombre) === index ) } rowKey={ record => record.nombre } >
         <Table.Column title='Nombre'   dataIndex='nombre' key='nombre' />
         <Table.Column title='Paradas'  dataIndex='ubicaciones' key='ubicaciones' render={  val => val.length } />
         <Table.Column title='Subieron' dataIndex='totalSuben' key='totalSuben' />
@@ -20,5 +25,18 @@ export const TablaResumen:React.FC = () => {
         }} />
         <Table.Column title='Precio'  dataIndex='precio' key='precio' />
         <Table.Column title='Total'    dataIndex='precio' key='total' render={ (_, record: Tramo ) => Number( record.totalBajan * record.precio ).toLocaleString('es-NI', { maximumFractionDigits: 2, currency: 'NIO' }) } />
+    </Table>
+}
+
+export const TablaResumen : React.FC =()=>{
+    const { data } = useContext(MyAppContext);
+    console.log('Buses',data)
+    return <Table 
+        dataSource={ data }
+        rowKey={ record => record.placa }
+        expandable={ { 
+            expandedRowRender: (record) => <TablaTramos tramos={ record?.tramos?? [] } /> } } >
+        <Table.Column title='Placa' dataIndex='placa' key='placa' />
+
     </Table>
 }
