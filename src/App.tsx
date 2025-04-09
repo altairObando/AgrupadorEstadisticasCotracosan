@@ -1,5 +1,5 @@
-import { Card, Layout, StepProps, Steps, Flex } from 'antd';
-import { FileAddOutlined, ControlOutlined, DollarOutlined, CalculatorOutlined } from '@ant-design/icons';
+import { Card, Layout, StepProps, Steps, Flex, Breadcrumb, Space, Avatar } from 'antd';
+import { FileAddOutlined, ControlOutlined, CalculatorOutlined, ApiOutlined } from '@ant-design/icons';
 import { useContext, useState } from 'react';
 import { CargaArchivo } from './components/CargaArchivo';
 import { DataGroup } from './interfaces/DataGroup';
@@ -13,7 +13,7 @@ const Pasos: StepProps[] = [
   { title:'Carga', description: 'Carga de Archivo', icon: <FileAddOutlined /> },
   { title:'Configurar', description: 'Agrupa por tramo y establecer el precio', icon: <ControlOutlined /> },
   { title:'Resumen', description: 'Resumen', icon: <CalculatorOutlined />},
-  { title:'Resultado', description: 'Total Calculado', icon: <DollarOutlined /> },
+  //{ title:'Resultado', description: 'Total Calculado', icon: <DollarOutlined /> },
 ];
 
 function App() {
@@ -25,7 +25,17 @@ function App() {
   };
 
   return (
-    <Layout style={{ flex: 1, display: 'flex' }}>
+    <Layout style={{ flex: 1, display: 'flex', padding: '1em'}}>
+      <Card style={{ marginBottom: '1.5em', backgroundColor: '#fafafa'}}>
+          <Breadcrumb style={{ margin: '16px 0' }}>
+            <Breadcrumb.Item>Home</Breadcrumb.Item>
+            <Breadcrumb.Item>Cotracosan</Breadcrumb.Item>
+          </Breadcrumb>
+          <Space>
+            <Avatar size={'large'} icon={<ApiOutlined />} />
+            <h2>Agrupador de estadisticas</h2>      
+          </Space>
+        </Card>
       <Content style={{ flex: 1, minHeight: '50em'}}>
         <Flex gap='middle' vertical>
           <Card>

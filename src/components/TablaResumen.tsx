@@ -11,7 +11,6 @@ interface TablaTramosProps {
 
 
 const TablaTramos:React.FC<TablaTramosProps> = ({ tramos }) => {
-    console.log('tramos', tramos);
     return <Table dataSource={ (tramos || []).filter(( value, index, arr) => arr.findIndex(item => item.nombre == value.nombre) === index ) } rowKey={ record => record.nombre } >
         <Table.Column title='Nombre'   dataIndex='nombre' key='nombre' />
         <Table.Column title='Paradas'  dataIndex='ubicaciones' key='ubicaciones' render={  val => val.length } />
@@ -37,6 +36,16 @@ export const TablaResumen : React.FC =()=>{
         expandable={ { 
             expandedRowRender: (record) => <TablaTramos tramos={ record?.tramos?? [] } /> } } >
         <Table.Column title='Placa' dataIndex='placa' key='placa' />
-
+        <Table.Column title='Duracion del recorrido' dataIndex='datos' key='duracion' render={ (datos: DataRow[]) => {
+            if(datos.length == 0) return 0;
+            const tiempo = new Date(datos[datos.length - 1].fechaHora).getTime() - new Date(datos[0].fechaHora).getTime();
+            if(tiempo > 0) {
+                const hours = Math.floor(tiempo / (60000 * 60));
+                const minutes = Math.floor((tiempo % (60000 * 60)) / 60000);
+                return `${hours}h ${minutes}m`;
+            }
+            return '';
+        }} />
+        <Table.Column title='Total' dataIndex='tramos' key='total' render={ (tramos: Tramo[]) => Number( (tramos || []).reduce((acc, curr) => acc + curr.totalBajan * curr.precio, 0) ).toLocaleString('es-NI', { maximumFractionDigits: 2, currency: 'NIO' }) } />
     </Table>
 }
