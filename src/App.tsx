@@ -1,4 +1,4 @@
-import { Card, Layout, StepProps, Steps, Flex, Breadcrumb, Space, Avatar } from 'antd';
+import { Card, Layout, StepProps, Steps, Flex, Space, Avatar } from 'antd';
 import { FileAddOutlined, ControlOutlined, CalculatorOutlined, ApiOutlined } from '@ant-design/icons';
 import { useContext, useState } from 'react';
 import { CargaArchivo } from './components/CargaArchivo';
