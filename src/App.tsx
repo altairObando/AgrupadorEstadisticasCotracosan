@@ -26,16 +26,10 @@ function App() {
 
   return (
     <Layout style={{ flex: 1, display: 'flex', padding: '1em'}}>
-      <Card style={{ marginBottom: '1.5em', backgroundColor: '#fafafa'}}>
-          <Breadcrumb style={{ margin: '16px 0' }}>
-            <Breadcrumb.Item>Home</Breadcrumb.Item>
-            <Breadcrumb.Item>Cotracosan</Breadcrumb.Item>
-          </Breadcrumb>
-          <Space>
+      <Space>
             <Avatar size={'large'} icon={<ApiOutlined />} />
             <h2>Agrupador de estadisticas</h2>      
           </Space>
-        </Card>
       <Content style={{ flex: 1, minHeight: '50em'}}>
         <Flex gap='middle' vertical>
           <Card>
